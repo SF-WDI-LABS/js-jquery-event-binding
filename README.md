@@ -1,5 +1,6 @@
 <!--
-Creator: <Name>
+Creator: SF WDI Team
+Edited By: Jean, Brianna
 Location: SF
 -->
 
@@ -33,9 +34,98 @@ Most of the interactivity for JavaScript in the web is based around events.  The
 
 ### Aside: Callbacks
 
+#####Arguments
+
+A simple function lets us name some behavior (some sequence of code) and reuse it later. 
+
+```js
+function sayHelloAli(){
+   console.log("Hello, Ali!");
+}
+
+sayHelloAli();
+```
+
+We can make functions more flexible with arguments:
+
+```js
+function sayHello(name){
+   console.log("Hello, " + name + "!");
+}
+
+sayHello("Ali");
+sayHello("Mercedes");
+```
+
+Now we have a more flexible and reusable function. 
+
+We can make this even more flexible by passing in a function as an argument. 
+
+```js
+function doSomethingToSomeone(targetName, functionToDo){
+   console.log("You approach " + targetName + ".");  // higher order functions often add information or behaviors
+   functionToDo(targetName);
+};
+```
+
+Now, we have an even more flexible, reusable function.
+
+```
+doSomethingToSomeone("Ali", sayHello);
+
+// You approach Ali.
+// Hello, Ali!
+```
+
+##### Check for Understanding
+
+1. What will the console output be when you run the following code?
+
+	```js
+	function highFive(name){
+	  console.log("You send " + name + " a big high five!");
+	}
+
+	doSomethingToSomeone("Ali", highFive);
+	```
+
+	<details><summary>click to see console output</summary>
+	The following is logged to the console:
+	> You approach Ali.
+	> You send Ali a big high five!
+	</details>
+
+1. What will the console output be given the following code?
+
+  ```js
+	function attemptSomethingWithSomeone(targetName, functionToTry){
+		console.log("You approach " + targetName + ".");
+		functionToTry(targetName);
+		var success = Math.random();
+		if (success < 0.5) {
+		  console.log("It goes... okay.");
+		} else {
+		  console.log("It's awesome!");
+		}
+	}
+	
+	function highFive(name){
+	  console.log("You send " + name + " a big high five!");
+	}
+	
+	attemptSomethingWithSomeone("Mercedes", highFive);
+	```
+	
+	<details><summary>click for a possible outcome</summary>
+	The following might be logged to the console:
+	> You approach Mercedes.
+	> You send Mercedes a big high five!
+	> It goes... okay.
+	</details>
+
 ![callback](http://i.giphy.com/xT8qBu5gOYEqHhgDQs.gif)
 
-A **callback** is a function that is passed into another function as an argument and then used. A function that can take in a callback as an argument is known as a **higher order function**.
+A **callback** is a function that is passed into another function as an argument and then called inside that other function. A function that can take in a callback as an argument is known as a **higher order function**.
 
 ```js
 
@@ -54,9 +144,11 @@ function splitItCallback(str){
 
 higherOrderFunction("Functions are fun!", shoutItCallback);
 
-higherOrderFunction("functions are fun!", splitItCallback);
+higherOrderFunction("Functions are fun!", splitItCallback);
 
 ```
+
+##### Callbacks & Iterator Methods
 
 The callback pattern is used a lot in JavaScript. As an example, `.forEach` is a built-in Array **iterator method** that takes in a callback.
 
@@ -74,6 +166,9 @@ function isEven(num){
 }
 ```
 
+> When you use a jQuery selector like `$('p')`, the collection you get back isn't exactly the same as a native JavaScript array. To iterate over a jQuery collection, use jQuery's `.each` **iterator method**. Or, use the `eq` method to access one element by index: `$('p').eq(3)`.
+
+##### Callbacks & Anonymous Functions
 Often, the callback function definition is written inside the higher order function call.
 
 
@@ -91,9 +186,6 @@ numbers.forEach(function isEven(num){
 
 In these cases, the callback often won't be given a name.  A function without a name is called an **anonymous function**.
 
-> When you use a jQuery selector like `$('p')`, the collection you get back isn't exactly the same as a native JavaScript array. To iterate over a jQuery collection, use jQuery's `.each` iterator method.
-
-
 
 ### Events
 
@@ -101,7 +193,7 @@ In these cases, the callback often won't be given a name.  A function without a 
 
 ![Click Event](http://i.giphy.com/l0HlL2I8DbNa6JCJa.gif)
 
-In Chrome, we can use the following utility function to log some events occurring in the window:
+In Chrome, we can use the `monitorEvents` utility function to log some events occurring in the window:
 
 ```js
 monitorEvents(window, ["click", "keypress", "resize", "scroll"]);
@@ -153,6 +245,8 @@ Here's how this looks all together with "vanilla" or "native" JavaScript:
   }
 ```
 
+**Check for Understanding:** Where is this code above using a callback?
+
 When we've selected an element or elements with jQuery, we can use jQuery's `.on` method to add an event listener:
 
 ```js
@@ -184,30 +278,64 @@ In the last example:
 
 Open your developer console on [jQuery.com](https://jquery.com).
 
-Let's add some behavior for the scroll event for the entire window.  Try selecting the browser's `window` object using `$(window)`.
+Let's add some behavior for the scroll event for the entire window.  Try selecting the browser's `window` object using `$(window)`.  Note that the argument here is a variable, `window`, not a string `"window"`.  Chrome gives us direct access to the `window` much like we have access to the `document`. 
 
 1. Add an event listener to detect the "scroll" event for the window and `console.log` a message every time the event occurs.
 
   <details>
-    <summary>answer</summary>
+    <summary>answer in jQuery</summary>
     ```js
-    $(window).on("scroll", function handleScroll(){
+    $(window).on("scroll", logScroll);
+		
+		function logScroll(){
         console.log("just keep scrolling, scrolling, scrolling");
-    })
+    }
     ```
   </details>
+	
+	 <details>
+    <summary>vanilla JavaScript version</summary>
+    ```js
+		window.addEventListener("scroll", logScroll);
+		
+		function logScroll(){
+        console.log("just keep scrolling, scrolling, scrolling");
+    }
+    ```
+  </details>
+	
 
 2. Modify your event handler so it adds a new paragraph, `<p>to infinity... and beyond!</p>`, at the bottom of the page every time the user scrolls.
 
   <details>
-    <summary>answer</summary>
+    <summary>answer in jQuery</summary>
     ```js
-    $(window).on("scroll", function handleScroll(){
+    $(window).on("scroll", addParagraph);
+		
+		function addParagraph(){
         $("body").append("<p>to infinity... and beyond!</p>");
-    })
+    }
+    ```
+  </details>
+	
+	 <details>
+    <summary>vanilla JavaScript version</summary>
+    ```js
+		window.addEventListener("scroll", addParagraph);
+		
+		function addParagraph(){
+        var newParagraph = document.createElement("p");
+				newParagraph.textContent = "to infinity... and beyond!";
+				document.body.appendChild(newParagraph);
+    }
     ```
   </details>
  
+> Note: You can remove event listeners, too.  In vanilla JavaScript, you'd use the `removeEventListener` function. With jQuery, we can use `off`. 
+
+
+
+
 ### Checking that the DOM is Ready
 
 User actions can cause the browser to "emit" (send) some kinds of events, but the browser also emits extra events that might be useful for developers. The most important one is `DOMContentLoaded`, which gets sent when the browser is finished creating the Document Object Model. 
@@ -364,6 +492,7 @@ var kitten = $('#kittenPic');
 kitten.on("click", function (event) {
     console.log(this);
     console.log(event.target);
+    console.log("target same as this?", this === event.target);
 });
 
 ```
@@ -371,14 +500,14 @@ kitten.on("click", function (event) {
 
 #### Event Bubbling
 
-This might seem very straightforward, but in reality the `event.target` is not always the only element that knows about the click.
+This might seem very straightforward, but in reality the `event.target` usually isn't the only element that knows about the event.
 
 
 `index.html`
 
 ```html
 <div id="kittenCon">
-    <img id="kittenPic" src="http://petnamesplace.com/wp-content/uploads/2009/12/kitten-names-copy.jpg"></img>
+    <img id="kittenPic" src="http://petnamesplace.com/wp-content/uploads/2009/12/kitten-names-copy.jpg">
 </div>
 ```
 
@@ -393,6 +522,7 @@ var kittenContainer = $('#kittenCon');
 kittenContainer.on("click", function (event) {
     console.log(this);
     console.log(event.target);
+    console.log("target same as this?", this === event.target);
 });
 
 ```
@@ -451,10 +581,6 @@ function toggleLongCon(event){
 }
 ```
 
-### Independent Practice
-
-Practice with this event medley  [training](https://github.com/sf-wdi-33/jquery-events-training).  
-
 
 ### Closing Thoughts
 
@@ -462,6 +588,6 @@ Practice with this event medley  [training](https://github.com/sf-wdi-33/jquery-
 
 * Practice selecting DOM elements. This can be done with native JavaScript language features, but we're mainly going to use jQuery library methods.
 
-* Remember, jQuery is a library, not a language.
+* Remember, jQuery is a library, not a language.  We use jQuery because it lets us write fewer lines of code - see [youmightnotneedjquery.com](http://youmightnotneedjquery.com/).
 
 * Events bubble; we can use this to our advantage!
