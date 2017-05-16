@@ -171,7 +171,7 @@ $('#greeting').mouseover(popUpYay);
 
 The `.mouseover(...)` method is equivalent to `.on('mouseover', ...)`. We recommend using `.on` because it has some more flexibility through optional parameters. 
 
-####Check for Understanding
+#### Check for Understanding
 
 In the last example:
 
@@ -180,7 +180,7 @@ In the last example:
   * What is the action tied to this event?
   * When is the `popUpYay` function actually executed?
 
-####Check for Understanding
+#### Check for Understanding
 
 Open your developer console on [jQuery.com](https://jquery.com).
 
@@ -399,7 +399,7 @@ kittenContainer.on("click", function (event) {
 
 Note that that when we click the image we also click anything containing the image - the `#kittenCon` `<div>`, the `<body>`, the whole `document` and `window` objects.
 
-###Event Delegation
+### Event Delegation
 
 Event bubbling enables a tactic called event delegation - attaching an event listener to a parent element when we actually want to listen for events on its children.  
 
