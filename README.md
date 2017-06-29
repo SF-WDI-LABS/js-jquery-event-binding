@@ -453,7 +453,7 @@ function toggleLongCon(event){
 
 ### Independent Practice
 
-Practice with this event medley  [training](https://github.com/sf-wdi-33/jquery-events-training).  
+Practice with this event medley  [training](https://github.com/sf-wdi-labs/jquery-events-training).  
 
 
 ### Closing Thoughts
