@@ -190,23 +190,17 @@ Let's add some behavior for the scroll event for the entire window.  Try selecti
 
   <details>
     <summary>answer</summary>
-    ```js
-    $(window).on("scroll", function handleScroll(){
-        console.log("just keep scrolling, scrolling, scrolling");
-    })
-    ```
+    <img src="https://user-images.githubusercontent.com/6520345/27708650-7c4b15f0-5cce-11e7-8edd-494f6972be10.png">
   </details>
+  <br>
 
 2. Modify your event handler so it adds a new paragraph, `<p>to infinity... and beyond!</p>`, at the bottom of the page every time the user scrolls.
 
   <details>
     <summary>answer</summary>
-    ```js
-    $(window).on("scroll", function handleScroll(){
-        $("body").append("<p>to infinity... and beyond!</p>");
-    })
-    ```
+    <img src="https://user-images.githubusercontent.com/6520345/27708712-9c212306-5cce-11e7-84c3-8dc75140f38a.png">
   </details>
+  <br>
  
 ### Checking that the DOM is Ready
 
