@@ -169,7 +169,7 @@ Sometimes you will see this shorthand:
 $('#greeting').mouseover(popUpYay);
 ```
 
-The `.mouseover(...)` method is equivalent to `.on('mouseover', ...)`. We recommend using `.on` because it has some more flexibility through optional parameters. 
+The `.mouseover(...)` method is equivalent to `.on('mouseover', ...)`. We recommend using `.on` because it has some more flexibility through optional parameters.
 
 #### Check for Understanding
 
@@ -201,17 +201,17 @@ Let's add some behavior for the scroll event for the entire window.  Try selecti
     <img src="https://user-images.githubusercontent.com/6520345/27708712-9c212306-5cce-11e7-84c3-8dc75140f38a.png">
   </details>
   <br>
- 
+
 ### Checking that the DOM is Ready
 
-User actions can cause the browser to "emit" (send) some kinds of events, but the browser also emits extra events that might be useful for developers. The most important one is `DOMContentLoaded`, which gets sent when the browser is finished creating the Document Object Model. 
+User actions can cause the browser to "emit" (send) some kinds of events, but the browser also emits extra events that might be useful for developers. The most important one is `DOMContentLoaded`, which gets sent when the browser is finished creating the Document Object Model.
 
 Before the `DOMContentLoaded` event occurs, the browser is still working on tasks like deciding which CSS rules apply to particular HTML elements.  Before the `DOMContentLoaded` event occurs, the DOM elements aren't on the page yet.  So if you try to select a DOM element before that event, it won't be there!
 
 **Any code that relies on DOM elements being ready MUST happen after the `DOMContentLoaded` event!**
 
 
-We can get around this by putting `<script>` tags at very the bottom of the body, because by the time the browser is working on the bottom of the body we can expect the rest of the content is loaded.  However, you'll often see `<script>` tags listed in the head of an HTML file.  In that case, it's important to explicitly listen for the `DOMContentLoaded` event! 
+We can get around this by putting `<script>` tags at very the bottom of the body, because by the time the browser is working on the bottom of the body we can expect the rest of the content is loaded.  However, you'll often see `<script>` tags listed in the head of an HTML file.  In that case, it's important to explicitly listen for the `DOMContentLoaded` event!
 
 In jQuery, there's a method to check if the DOM is ready. It relies mostly on the `DOMContentLoaded` event, but as a bonus it also accounts for some other specific events used by older browsers.  The jQuery method we use is `ready`, and we apply it to the document in a way that looks like jQuery event handling shorthand:
 
@@ -222,7 +222,7 @@ In jQuery, there's a method to check if the DOM is ready. It relies mostly on th
 $(document).ready(function(){
     // code in here DOES wait for DOM to be ready
     // best place for DOM element selectors
-    // best place to *call* functions that interact with the DOM 
+    // best place to *call* functions that interact with the DOM
     var greeting = $('#greeting');
 	greeting.on('mouseover', popUpYay);
 });
@@ -232,7 +232,7 @@ $(document).ready(function(){
 function popUpYay(event){
     alert('Yay!');
     // DOM interaction is planned here - but only gets executed when function is called
-    $('body').append('Yay!'); 
+    $('body').append('Yay!');
 }
 ```
 
@@ -248,8 +248,8 @@ Here's part of a site's `index.html`:
 	<li>2</li>
 	<li class="featured">3</li>
 </ul>
-``` 
-  
+```
+
 Assume the JavaScript file below is linked with a `<script>` tag in the head of `index.html`.  What mistake(s) do you see in the code below?
 
 `app.js`
@@ -272,10 +272,11 @@ function updateFeaturedClickCount(){
 
 <details>
 <summary>answer</summary>
-The only issue is that the text inside the `#click-count` span doesn't initially show 0. The line that tries to make this change, `$('#click-count').text('0');` happens outside `$(document).ready(/* ... */)`, which means it happens before the span is loaded into the DOM. 
+
+The only issue is that the text inside the `#click-count` span doesn't initially show 0. The line that tries to make this change, `$('#click-count').text('0');` happens outside `$(document).ready(/* ... */)`, which means it happens before the span is loaded into the DOM.
 
 Here's a version that works:
-  
+
 `app.js`
 
 ```js
