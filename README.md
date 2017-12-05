@@ -438,10 +438,10 @@ $(document).ready(function(){
     // ...
     window.setTimeout(addBox, 3000);
     // $('.box').on("click", toggleLongBox);  // didn't work!
-    $('#box-container').on("click", ".box", toggleLongCon);
+    $('#box-container').on("click", ".box", toggleLongBox);
 });
 
-function toggleLongCon(event){
+function toggleLongBox(event){
     $(event.target).toggleClass("long-box");
 }
 ```
