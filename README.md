@@ -267,24 +267,6 @@ Here's part of a site's `index.html`:
 </body>
 ```
 
-Assume the JavaScript file below is linked with a `<script>` tag in the head of `index.html`.  What mistake(s) do you see in the code below?
-
-`app.js`
-
-```js
-var clickCount = 0;
-$('#click-count').text('0');
-
-$(document).ready(function(){
-    $('.featured').on('click', updateFeaturedClickCount);
-});
-
-function updateFeaturedClickCount(){
-	clickCount = clickCount + 1;
-	$('#click-count').text(clickCount);
-}
-```
-
 
 
 <details>
